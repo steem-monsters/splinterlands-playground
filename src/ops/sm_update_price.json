@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2019-09/schema",
+  "$id": "http://github.com/ops/sm_update_price.json",
+  "type": "object",
+  "default": {},
+  "title": "sm_update_price Schema",
+  "required": ["ids", "new_price"],
+  "properties": {
+    "ids": {
+      "type": "array",
+      "default": [],
+      "title": "The ids Schema",
+      "items": {
+        "type": "string",
+        "title": "A Schema",
+        "examples": [
+          "4e08a7ea0ed00f8f93e5a60843c91934fd1cdc4d-0",
+          "7d86a91560f7d345111482533a983f260aaab25c-0"
+        ]
+      },
+      "examples": [
+        [
+          "4e08a7ea0ed00f8f93e5a60843c91934fd1cdc4d-0",
+          "7d86a91560f7d345111482533a983f260aaab25c-0"
+        ]
+      ]
+    },
+    "new_price": {
+      "type": "number",
+      "default": 0.0,
+      "title": "The new_price Schema",
+      "examples": [123.11]
+    }
+  },
+  "examples": [
+    {
+      "ids": [
+        "4e08a7ea0ed00f8f93e5a60843c91934fd1cdc4d-0",
+        "7d86a91560f7d345111482533a983f260aaab25c-0"
+      ],
+      "new_price": 123.11
+    }
+  ]
+}

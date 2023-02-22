@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Hive Playground</title>
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Materialize CSS -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <!-- Include the custom css for this page -->
+  <link rel="stylesheet" type="text/css" media="screen" href="broadcaster.css" />
+</head>
+
+<body>
+  <div id="navbar"></div>
+  <div class="row">
+    <div class="col s12">
+      <h1 class="header">Broadcaster</h1>
+      <p class="flow-text">The below form can be used to broadcast custom blockchain operations used by Splinterlands.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <div class="col s12">
+          <h5><i class="material-icons">mode_edit</i> Custom Operation</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <div class="z-depth-1" style="padding:15px">
+            <form onsubmit="event.preventDefault();">
+              <div class="row">
+                <div class="col l6 s12">
+                  <!-- Id of custom_json (type of custom_json to be broadcasted) -->
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input id="id" type="text" class="validate" required="" aria-required="true">
+                      <label for="id">Id</label>
+                      <span class="helper-text">Type of custom_json to be broadcasted.</span>
+                    </div>
+                  </div>
+                  <!-- Type of Key -->
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <select id="key-type">
+                        <option value="" disabled selected>Choose your option</option>
+                        <option value="Posting" selected>Posting</option>
+                        <option value="Active">Active</option>
+                        <!-- <option value="Owner">Owner</option> -->
+                        <option value="Memo">Memo</option>
+                      </select>
+                      <label>Key Type</label>
+                      <span class="helper-text">Type of key. Can be 'Posting', 'Active' or 'Memo'</span>
+                    </div>
+                  </div>
+                  <!-- Display message (describes what the custom json is doing) -->
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input id="display-message" type="text" class="validate" required="" aria-required="true">
+                      <label for="display-message">Display Message</label>
+                      <span class="helper-text">Message to display to explain to the user what this broadcast is about.</span>
+                    </div>
+                  </div>
+                  <!-- Username -->
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input id="username" type="text" class="validate">
+                      <label for="username">HIVE Account</label>
+                      <span class="helper-text">Hive account to perform the request. If blank, user can choose the account from
+                        a dropdown</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col l6 s12">
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <div id="editor" class="text-editor" style="margin-top:15px;margin-bottom: 15px;"></div>
+                      <label class="active">Custom JSON</label>
+                      <span class="helper-text">Stringified custom json</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col s12">
+                  <button class="btn waves-effect waves-light" disabled="" type="submit" name="action" id="run">Broadcast
+                    <i class="material-icons right">send</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col s12">
+      <div class="row">
+        <div class="col s12">
+          <h5><i class="material-icons">history</i> Message History</h5>
+        </div>
+      </div>
+      <ul id="message-history" class="collapsible"></ul>
+    </div>
+  </div>
+
+  <!-- Templates -->
+  <script id="message-history-template" type="x-tmpl-mustache">
+    {{#messageHistory}}
+    <li class="{{messageClass}}">
+      <div class="collapsible-header">
+        <i class="material-icons circle">{{icon}}</i>{{message.id}}
+        <div class="col s6"><span class="right">{{timestampLocale}}</span></div>
+      </div>
+      <div class="collapsible-body">
+        <div class="row">
+          <div class="col s12">
+            <label>Id</label>
+            <p>{{message.id}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <label>Key Type</label>
+            <p>{{message.keyType}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <label>Display Message</label>
+            <p>{{message.displayMessage}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <label>Custom JSON</label>
+            <div>
+              <pre style="overflow:auto">{{message.customJsonString}}</pre>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <label>HIVE Account</label>
+            <p>{{message.username}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <label>Result</label>
+            <div>
+              <pre style="overflow:auto">{{resultString}}</pre>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 btn-bar">
+            <button class="btn btn-small waves-effect waves-light" type="button" name="action">Copy to Inputs
+              <i class="material-icons right">content_copy</i>
+            </button>
+            <button class="btn btn-small waves-effect waves-light" type="button" name="action">Copy to Clipboard
+              <i class="material-icons right">content_copy</i>
+            </button>
+            {{#message.result.result.id}}
+            <a class="btn btn-small waves-effect waves-light" target="_blank" href="https://hivehub.dev/tx/{{message.result.result.id}}">View on HiveHub.Dev
+              <i class="material-icons right">open_in_new</i>
+            </a>
+            {{/message.result.result.id}}
+          </div>
+        </div>
+      </div>
+    </li>
+    {{/messageHistory}}
+  </script>
+
+  <!-- Include jQuery -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+  <!-- Include Materialize JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <!-- Include ace -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/ace.min.js"
+    integrity="sha512-9wsrxhzNVuW9XQgRmpSG9i23hheWGRZt0+M+T4vA/CXPLNEPCGsTXHaQi8/U5/gpuboqT0tFW+1hhUPzA4UHQA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>ace.config.set('basePath', 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.15.2/')</script>
+
+  <!-- Include browser-require -->
+  <script src="browser-require.js"></script>
+
+  <!-- Include mustache.js -->
+  <script src="https://unpkg.com/mustache@latest"></script>
+
+  <!-- Include Components -->
+  <script src="navbar.js"></script>
+
+  <!-- Include the custom script for this page -->
+  <script src="broadcaster.js"></script>
+
+</body>
+
+</html>

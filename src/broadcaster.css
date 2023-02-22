@@ -1,0 +1,9 @@
+.text-editor {
+    position: relative;
+    height:400px;
+    width: 100%;
+}
+
+.btn-bar .btn {
+  margin-bottom: 5px;
+}

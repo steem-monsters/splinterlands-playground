@@ -1,0 +1,25 @@
+{
+  "name": "splinterlands-playground",
+  "version": "1.0.0",
+  "description": "The playground for programmatic interaction with the Splinterlands platform.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "cd src && http-server",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steem-monsters/splinterlands-playground.git"
+  },
+  "keywords": [
+    "splinterlands",
+    "examples",
+    "playground"
+  ],
+  "author": "Splinterlands",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/steem-monsters/splinterlands-playground/issues"
+  },
+  "homepage": "https://github.com/steem-monsters/splinterlands-playground#readme"
+}
