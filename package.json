@@ -2,7 +2,7 @@
   "name": "splinterlands-playground",
   "version": "1.0.0",
   "description": "The playground for programmatic interaction with the Splinterlands platform.",
-  "main": "src/index.js",
+  "main": "docs/index.html",
   "scripts": {
     "start": "cd docs && http-server",
     "test": "jest"
