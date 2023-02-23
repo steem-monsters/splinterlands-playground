@@ -4,7 +4,7 @@
   "description": "The playground for programmatic interaction with the Splinterlands platform.",
   "main": "src/index.js",
   "scripts": {
-    "start": "cd src && http-server",
+    "start": "cd docs && http-server",
     "test": "jest"
   },
   "repository": {
