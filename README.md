@@ -2,6 +2,8 @@
 
 The playground for programmatic interaction with the Splinterlands platform.
 
+It's designed to be hosted on GitHub Pages at [playground.splinterlands.com](http://playground.splinterlands.com).
+
 ## Features
 
 The features of the Playground:
